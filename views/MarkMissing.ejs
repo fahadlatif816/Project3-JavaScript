@@ -1,0 +1,97 @@
+<html>
+
+<head>
+    <title>Mark Missing Attendance</title>
+    <style type="text/css">
+        @import url("/stylesheets/styleSheet1.css");
+    </style>
+</head>
+
+<body>
+    <form method="post" action="/user/postMarkMissing">
+        <input name="fromMissing" type="hidden" value=<%=fromMissing %>>
+        <input name="toMissing" type="hidden" value=<%=toMissing %>>
+        <input name="name" type="hidden" value=<%=name %>>
+        <table width="965">
+            <tr>
+                <td colspan=2>&nbsp;</td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+            </tr>
+            <tr>
+                <td colspan="1">&nbsp;</td>
+                <td colspan=2 class="olive" align="right">
+                    <%= name %>
+                </td>
+            </tr>
+            <tr>
+                <td width="97">&nbsp;</td>
+                <td width="638">
+
+                    <table width="727" border="0" align="right" cellpadding="3" cellspacing="0">
+                        <tr>
+                            <td class="error"><strong><u>Note</u>: Enter time in 24-hour format to avoid miscalculations</strong></td>
+                        </tr>
+
+                        <tr align="center">
+                            <td colspan="2"></td><table width="727"  cellspacing="0" >
+                            <tr>
+                                <td width="22">&nbsp;</td>
+
+                                <td width="10000" class="olive">Time In</td>
+                                <td width="10000" class="olive">Time Out </td>
+                            
+                                <td width="22">&nbsp;</td>
+                            
+                                <td width="400" class="olive">Request</td>	
+                                        
+                            </tr>
+
+                                <table width="727" cellspacing="0">
+                                    <% for(var i=0; i < data.length; i++) { %>
+                                    <td colspan=9>
+                                        <hr>
+                                        <tr>
+                                            <td class=darkgray colspan=3> <%= data[i].day %> <%= data[i].month %> <%= data[i].date %> , <%= data[i].year %>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <input type="hidden" name="Att_id" value=<%= data[i].id %>>
+                                            </td>
+                                            <td>
+                                                <input name=<%= "in" %> type=text size=10 value= <%= data[i].timeIn %> ></td>
+                                            <td>
+                                                <input name=<%= "out" %> type=text size=10 value= <%= data[i].timeOut %> ></td>
+                                            <td width=60>&nbsp;</td>
+                                            <td class=darkgray><span id=<%= "reqIn" %>> <%= data[i].reqIn %> </span>-<span id=<%= "reqOut" %>> <%= data[i].reqOut %> </span>
+                                            </td>
+                                        </tr>
+                                        <% } %>
+                                </table>
+                                </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <table width="500" border="0" cellpadding="1">
+                                    <tr style="margin-left: 115px; margin-top: 25px;">
+                                        <td width="287" align="center" style="padding-top: 19px;">
+                                            <a href="/" class="greenbutton" style="margin:5px;user-select: none;white-space: pre;align-items: flex-start;text-align: center;cursor: default;color: buttontext;background-color: buttonface;box-sizing: border-box;padding: 1px 6px;border-width: 2px;border-style: outset;border-color: buttonface;border-image: initial; background-color: #8BA143!important; color: azure;">Back</a>
+                                            <input type="submit" style="margin:5px;" class="greenbutton" value="Save"> </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                    </td>
+                    <td>&nbsp;</td>
+            </tr>
+        </table>
+    </form>
+</body>
+
+</html>

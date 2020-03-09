@@ -1,0 +1,342 @@
+<style type="text/css">@import url("/stylesheets/styleSheet1.css");</style>
+<script type="text/javascript" src="/javascripts/currenttime.js"></script>
+<html>
+   <head>
+      <title>Attendance</title>
+   </head>
+   <style>
+      input[type="date"]::-webkit-inner-spin-button {
+      opacity: 0
+   }
+
+   input[type="date"]::-webkit-calendar-picker-indicator {
+      background: url(https://cdn3.iconfinder.com/data/icons/linecons-free-vector-icons-pack/32/calendar-16.png) center/80% no-repeat;
+      color: rgba(0, 0, 0, 0);
+      opacity: 0.5
+   }
+
+   input[type="date"]::-webkit-calendar-picker-indicator:hover {
+      background: url(https://cdn3.iconfinder.com/data/icons/linecons-free-vector-icons-pack/32/calendar-16.png) center/80% no-repeat;
+      opacity: 0.8
+   }
+   </style>
+   <body onLoad="UR_Start();">
+      <table>
+         <tr>
+            <td width = "210px">
+               <table class="Lightgray">
+                  <tr height="90px">
+                     <td></td>
+                  </tr>
+                  <tr>
+                     <td></td>
+                  </tr>
+               </table>
+            </td>
+            <td valign="top">
+               <table width='750px' border='0px' align='center' cellpadding="3" cellspacing="0">
+                  <tr>
+                     <td>
+                        <!--top most area-->
+                        <table align="right" cellspacing="0">
+                           <tr>
+                              <td>
+                                 <table width="606">
+                                    <tr>
+                                       <td width="600" class="darkgray" align="right" >Welcome, <%= name %></td>
+                                    </tr>
+                                 </table>
+                              </td>
+                              <td class="showtime"  align="right"><span id="currenttime"></span></td>
+                           </tr>
+                           <tr class="error">
+                              <td colspan="2"></td>
+                           </tr>
+                           <tr>
+                              <td colspan="2" align="right" valign="bottom">
+                                 <a href="auth/changePassword"><strong class="green">Change Password</strong></a>			     				&nbsp;&nbsp;&nbsp;&nbsp;
+                                 <a href="auth/logout"><strong class="green">Log Out</strong ></a>
+                              </td>
+                           </tr>
+                           <tr>
+                              <td colspan="2">
+                                 <div align="right">
+                                    &nbsp;
+                                 </div>
+                              </td>
+                           </tr>
+                        </table>
+                     </td>
+                  </tr>
+                  <tr>
+                  <tr>
+                     <td>&nbsp;</td>
+                  </tr>
+                  <tr>
+                     <td>
+                        <table align="center">
+                           <tr>
+                              <!--time in time out buttons-->
+                              <td width="280" class="olive">
+
+                                    <table cellpadding="0" cellspacing="10" border="0" width="280">
+                                       <tr>
+                                          <td class="olive" colspan=2>Mark Today's Attendance</td>
+                                       </tr>
+                                       <tr>
+                                       <td class="yellow" width="25%">Time-in:</td>
+                                       <form action="/user/markTimeIn" method="post">
+                                          <td width="75"> <input style="width:70px" class="greenbutton" type="submit" value="Time In" name="timein"/>
+                                       </form>
+                                       </td>
+                                    </tr>
+                                    <tr>
+                                       <td class="yellow" width="25%">Time-out:</td>
+                                       <form action="/user/markTimeOut" method="post">
+                                       <td width="75"> <input style="width:70px" class="greenbutton" type="submit" value="Time Out" name="timeout"/>
+                                       </form>
+                                       </td>
+                                    </tr>
+                                       <tr>
+                                          <td colspan="2"><input type="checkbox" name="timeOutOverwrite" checked="checked"/>
+                                             <font class="Lightgray">Overwrite last time-out</font >	
+                                          </td>
+                                       </tr>
+                                    </table>
+                                 
+                              </td>
+                              <!--time in time out of user for today-->							
+                              <td width="268">
+                                 <table  cellspacing="0" >
+                                    <tr class="yellow">
+                                       <td width="100" height="18" align="center" valign="middle" class="showtime">Time In</td>
+                                       <td width="100" height="18" align="center" valign="middle" class="showtime">Time Out</td>
+                                       <td></td>
+                                    </tr>
+                                    <tr>
+                                       <td colspan="2">
+                                          <hr>
+                                       <td>
+                                    </tr>
+                                    <tr class="green">
+                                       <td width="109" height="23" align="center" valign="middle"><%= timeIn %></td>
+                                       <td width="109" height="23" align="center" valign="middle" ><%= timeOut %></td>
+                                    </tr>
+                                 </table>
+                              </td>
+                           </tr>
+                           <tr>
+                              <td colspan="2">
+                                 <hr>
+                              </td>
+                           </tr>
+                           <tr>
+                              <!--view detailed report-->						
+                              <td>
+                                 <form action="/user/ViewReport" method="post" onsubmit="return checkDate();">
+                                    <table cellpadding=0 cellspacing=10 border=0>
+                                       <tr>
+                                             <td class="olive" colspan=4>View Detailed Report</td>
+                                       </tr>
+                                       <tr>
+                                             <td class="yellow">From: </td>
+                                             <td class="yellow" colspan=2 width=60%>
+                                                <span id="fromReportSpan">February 26, 2020</span> </td>
+                                             <td class="yellow">
+                                                <input type="date" name="fromViewCalendarReport" id="fromViewCalendarReportId"  value="" required>
+                                                
+                                             </td>
+                                       </tr>
+                                       <tr>
+                                             <td class="yellow">To: </td>
+                                             <td class="yellow" colspan=2 width=60%>
+                                                <span id="toReportSpan">March 03, 2020</span> </td>
+                                             <td class="yellow">
+                                                
+                                                <input type="date" name="toViewCalendarReport" id="toViewCalendarReportId" value="" required>
+                                                
+                                                
+                                             </td>
+                                       </tr>
+                                       <tr align=center>
+                                             <td colspan=4>
+                                                <input class="greenbutton" type="submit" value="View Report" /> </td>
+                                       </tr>
+                                    </table>
+                                 </form>
+                           </td>
+                              <!--weekly report of leaves-->			
+                              <td>
+                                 <table width="219" height="68" >
+                                    <tr>
+                                       <td width="296" class="green" >Leaves this week:</td>
+                                       <td width="58" ><strong class="Lightgray">0.0</strong></td>
+                                    </tr>
+                                    <tr>
+                                       <td class="green" >Violations this week:</td>
+                                       <td class="Lightgray"><strong>0</strong></td>
+                                    </tr>
+                                    <tr>
+                                       <td height="20" class="green" >Hours worked this week:</td>
+                                       <td class="Lightgray" ><strong>00:00</strong></td>
+                                    </tr>
+                                    <tr>
+                                       <td height="20" class="green" >Threshold Hours this week:</td>
+                                       <td class="Lightgray" ><strong>00:00</strong></td>
+                                    </tr>
+                                 </table>
+                              </td>
+                           </tr>
+                           <tr>
+                              <td colspan="2">
+                                 <hr>
+                              </td>
+                           </tr>
+                           <tr>
+                              <!--Mark missing-->				
+                              <td width="355" class="olive">
+                                 <form action="/user/MarkMissing" method="post" onsubmit="return checkMissingDate();">
+                                    <table border=0 cellpadding=0 cellspacing=10>
+                                       <tr>
+                                          <td class="olive" colspan=3>Request  Missing Entries</td>
+                                       </tr>
+                                       <tr>
+                                          <td class="yellow">From: </td>
+                                          <td class="yellow" >
+                                             <span id="fromReportSpan1">February 25, 2020</span>
+                                          </td>
+                                          <td class="yellow">
+                                                
+                                             <input type="date" name="fromViewCalendarReport1" id="fromViewCalendarReportId1" value="" required>
+                                             
+                                             
+                                          </td>
+                                       </tr>
+                                       <tr>
+                                          <td class="yellow">To: </td>
+                                          <td class="yellow">
+                                             <span id="toReportSpan1">March 02, 2020</span>
+                                          </td>
+                                          <td class="yellow">
+                                                
+                                             <input type="date" name="toViewCalendarReport1" id="toViewCalendarReportId1" value="" required>
+                                             
+                                             
+                                          </td>
+                                       </tr>
+                                       <tr align=center>
+                                          <td>&nbsp;</td>
+                                          <td >
+                                             <div align="left">
+                                                <input type=submit style="width:95px" class="greenbutton" value="Request Missing" />
+                                             </div>
+                                          </td>
+                                       </tr>
+                                    </table>
+                                 </form>
+                              </td>
+                           </tr>
+                        </table>
+                     </td>
+               </table>
+            </td>
+         </tr>
+      </table>
+   </body>
+   <script>
+      let today = new Date();
+      let pastDate = new Date(Date.now() - 604800000);
+      let todayDate;
+      let todayMonth;
+      let todayYear;
+      let pastDate1;
+      let pastMonth;
+      let pastYear;
+      if((today.getMonth()+1)<10)
+      {
+         todayMonth="0"+(today.getMonth()+1);
+      }
+      else{
+         todayMonth=(today.getMonth()+1);
+      }
+
+      if((today.getDate())<10)
+      {
+         todayDate="0"+(today.getDate());
+      }
+      else{
+         todayDate=(today.getDate());
+      }
+
+      todayYear=today.getFullYear();
+
+
+      if((pastDate.getMonth()+1)<10)
+      {
+         pastMonth="0"+(pastDate.getMonth()+1);
+      }
+      else{
+         pastMonth=(pastDate.getMonth()+1);
+      }
+
+      if((pastDate.getDate())<10)
+      {
+         pastDate1="0"+(pastDate.getDate()+1);
+      }
+      else{
+         pastDate1=(pastDate.getDate()+1);
+      }
+
+      pastYear=pastDate.getFullYear();
+
+      document.getElementById('toViewCalendarReportId').value=todayYear+"-"+todayMonth+ "-" +todayDate;
+      document.getElementById('fromViewCalendarReportId').value=pastYear+"-"+pastMonth+ "-" +pastDate1;
+      document.getElementById('toViewCalendarReportId1').value=todayYear+"-"+todayMonth+ "-" +todayDate;
+      document.getElementById('fromViewCalendarReportId1').value=pastYear+"-"+pastMonth+ "-" +pastDate1;
+
+      var month = [];
+      month[0] = "January";
+      month[1] = "February";
+      month[2] = "March";
+      month[3] = "April";
+      month[4] = "May";
+      month[5] = "June";
+      month[6] = "July";
+      month[7] = "August";
+      month[8] = "September";
+      month[9] = "October";
+      month[10] = "November";
+      month[11] = "December";
+      var n = month[today.getMonth()];
+      var m = month[pastDate.getMonth()];
+
+      document.getElementById('fromReportSpan').innerHTML=m + " "+ pastDate1 + ", " + pastYear;
+      document.getElementById('toReportSpan').innerHTML=n + " "+ todayDate + ", " + todayYear;
+      document.getElementById('fromReportSpan1').innerHTML=m + " "+ pastDate1 + ", " + pastYear;
+      document.getElementById('toReportSpan1').innerHTML=n + " "+ todayDate + ", " + todayYear;
+
+
+
+      function checkDate(){
+         let dateTo = document.getElementById('toViewCalendarReportId').value;
+         let dateFrom = document.getElementById('fromViewCalendarReportId').value;
+         if(dateFrom>dateTo)
+         {
+            alert("From Date Must be Lesser than To Date");
+            return false;
+         }
+         return true;
+      }
+
+      function checkMissingDate(){
+         let dateTo = document.getElementById('toViewCalendarReportId1').value;
+         let dateFrom = document.getElementById('fromViewCalendarReportId1').value;
+         if(dateFrom>dateTo)
+         {
+            alert("From Date Must be Lesser than To Date");
+            return false;
+         }
+         return true;
+      }
+   </script>
+</html>

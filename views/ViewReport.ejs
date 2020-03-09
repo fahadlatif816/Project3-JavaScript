@@ -1,0 +1,54 @@
+<html>
+<head>
+    <title>Attendance Report</title>
+</head>
+<body>
+<style type="text/css">
+    @import url("/stylesheets/styleSheet3.css");
+</style>
+<input name="PreviousAction" type="hidden" value="ViewMyReport">
+<br/><br/><br/><br/>
+<table width="675" height="246" border="1" align="center" cellpadding="0" cellspacing="0" class="yellowtable">
+    <tr class="green">
+        <td colspan="8"><strong>Attendance report for <%= name %> (<%= fromDate %> to <%= toDate %>)</strong></td>
+    </tr>
+    <tr>
+        <td colspan="8">&nbsp;</td>
+    </tr>
+    <tr>
+        <td colspan="8">&nbsp;</td>
+    </tr>
+    <tr class="olivecenter">
+        <td width="12%">Day</td>
+        <td width="14%">Date</td>
+        <td width="10%">Time-in</td>
+        <td width="9%">Time-out</td>
+        <td width="13%">Hours worked</td>
+        <td width="11%">Total Hours</td>
+        <td width="17%">Threshold Hours</td>
+        <td width="8%">Leave</td>
+    </tr>
+
+    <% for(var i=0; i < data.length; i++) { %>
+        <tr class="blackcenter">
+            <td><%= data[i].day %></td>
+            <td><%= data[i].month %>  <%= data[i].date %> , <%= data[i].year %></td>
+            <td><%= data[i].timeIn %></td>
+            <td><%= data[i].timeOut %></td>
+            <td><%= data[i].timeDiff %></td>
+            <td><%= data[i].timeDiff %></td>
+            <td>09:00</td>
+            <td>-</td>
+        </tr>
+    <% } %>
+
+    <tr>
+        <td colspan="8">&nbsp;</td>
+    </tr>
+    <tr>
+        <td colspan="8">&nbsp;</td>
+    </tr>
+    
+</table>
+</body>
+</html>
