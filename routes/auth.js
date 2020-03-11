@@ -132,7 +132,7 @@ router.post('/postForgetPassword',(req,res,next)=>{
                     from: 'fahadlatif816@gmail.com',
                     to: req.body.emailAddress,
                     subject: 'Reset Password | Folio3 Attendance System',
-                    html: '<p> Click the <a href="http://localhost:4000/auth/resetPassword?email=' +encryptedEmail.encryptedData+'&iv='+encryptedEmail.iv + '">link</a>' + ' to reset the password </p>'
+                    html: '<p> Click the <a href="http://localhost:3000/auth/resetPassword?email=' +encryptedEmail.encryptedData+'&iv='+encryptedEmail.iv + '">link</a>' + ' to reset the password </p>'
                 };
 
                 transporter.sendMail(mailOptions, function(error, info){
